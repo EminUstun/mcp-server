@@ -1,20 +1,22 @@
 from mcp.server.fastmcp import FastMCP
-from app import getDefinitions
+from app import get_random_dog_image, get_random_dog_fact
 
 # Initialize MCP server
-mcp = FastMCP("dictionary-mcp")
+mcp = FastMCP("dog-mcp")
 
 @mcp.tool()
-async def get_definitions(word: str) -> str:
+async def get_dog_image() -> str:
     """
-    Get definitions for a word.
+    Get a random dog image URL.
     """
-    # Get definitions from the app
-    definitions = getDefinitions(word)
-    if not definitions:
-        return "No definitions found."
+    return get_random_dog_image()
 
-    return definitions
+@mcp.tool()
+async def get_dog_fact() -> str:
+    """
+    Get a random dog fact.
+    """
+    return get_random_dog_fact()
 
 if __name__ == "__main__":
     mcp.run(transport="stdio")
